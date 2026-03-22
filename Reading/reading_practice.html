@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JLPT N2 - Luyện đọc hiểu (20260323)</title>
+    <link rel="stylesheet" href="reading-practice.css" />
+  </head>
+  <body>
+    <header>
+      <div class="rp-logo">JLPT N2 <span>/ Luyện đọc</span></div>
+    </header>
+
+    <div class="rp-progress-wrap">
+      <div class="rp-progress-meta">
+        <span id="rp-progLabel"></span>
+        <span id="rp-progPct"></span>
+      </div>
+      <div class="rp-progress-bar-bg">
+        <div
+          class="rp-progress-bar-fill"
+          id="rp-progressBar"
+          style="width: 0%"
+        ></div>
+      </div>
+    </div>
+
+    <div class="rp-card" id="rp-mainCard">
+      <div class="rp-card-header">
+        <span class="rp-badge" id="rp-badge">N2 読解</span>
+        <span class="rp-passage-id" id="rp-passageId"></span>
+      </div>
+      <div class="rp-japanese-text" id="rp-jpText"></div>
+      <button
+        class="rp-toggle-btn"
+        id="rp-toggleBtn"
+        onclick="ReadingPractice.toggleMeaning()"
+      >
+        <span>📖 Xem nghĩa &amp; giải thích</span>
+        <span class="rp-arrow">▼</span>
+      </button>
+      <div class="rp-meaning-panel" id="rp-meaningPanel">
+        <div class="rp-meaning-inner">
+          <div class="rp-vn-block">
+            <div class="rp-section-label">🇻🇳 Dịch nghĩa Tiếng Việt</div>
+            <p id="rp-vnText"></p>
+          </div>
+          <div class="rp-analysis-block">
+            <div class="rp-section-label">✏️ Giải thích ngữ pháp</div>
+            <p id="rp-analysisText"></p>
+          </div>
+        </div>
+      </div>
+      <div class="rp-actions">
+        <div id="rp-doneBadge" class="rp-done-badge" style="display: none">
+          ✅ Đã xem xong
+        </div>
+        <button
+          class="rp-btn-next"
+          id="rp-nextBtn"
+          onclick="ReadingPractice.nextPassage()"
+        >
+          Chuyển sang đoạn tiếp theo →
+        </button>
+      </div>
+    </div>
+
+    <div class="rp-card rp-completion-card" id="rp-completionCard">
+      <div class="rp-completion-icon">🎉</div>
+      <div class="rp-completion-title">Hoàn thành tất cả 20 đoạn!</div>
+      <div class="rp-completion-sub">
+        Bạn đã đọc hết toàn bộ bài luyện đọc N2.
+      </div>
+      <button class="rp-btn-restart" onclick="ReadingPractice.restartAll()">
+        ↺ Học lại từ đầu
+      </button>
+    </div>
+
+    <div class="rp-dot-grid" id="rp-dotGrid"></div>
+
+    <!-- ═══ ENGINE ═══ -->
+    <script src="reading-practice.js"></script>
+
+    <!-- ═══ DATA ═══ -->
+    <script>
+      const DATA = [
+        {
+          id: 1,
+          dataJp:
+            "わが社の金融部門で働く彼は、その注意深い性格からして、期日を一度も遅れたことがない。しかし、最近は猛暑が続く上に、路線の混雑で通勤も大変だ。システムの製作過程でエラーが見つかり、彼は夜通しでコードの補正を行っている。厚かましい読み手の愚痴に応えて、システムの装置を改良する際、データの補助は欠かせない。成功するかどうかは別として、彼の力強い姿は周囲を力づけるものがある。",
+          dataVn:
+            "Anh ấy làm việc tại bộ phận tài chính của công ty chúng tôi, xét từ tính cách cẩn thận đó thì anh ấy chưa từng trễ hạn chót lần nào. Thế nhưng, dạo gần đây không chỉ nắng nóng gay gắt kéo dài, mà việc đi làm cũng vất vả vì sự đông đúc của các tuyến đường. Trong quá trình sản xuất hệ thống phát hiện ra lỗi, anh ấy đã điều chỉnh mã nguồn suốt đêm. Đáp lại những lời than phiền trơ trẽn của người đọc, khi cải tiến thiết bị hệ thống, sự hỗ trợ của dữ liệu là không thể thiếu. Chưa bàn đến việc có thành công hay không, dáng vẻ mạnh mẽ của anh ấy có điều gì đó rất khích lệ mọi người xung quanh.",
+          dataAnalysis:
+            "Dùng ngữ pháp からして (xét từ), 上に (không chỉ mà còn), に応えて (đáp lại), ものがある (có cảm giác rất...).",
+        },
+        {
+          id: 2,
+          dataJp:
+            "嫁と買い物に行った際、彼女は木製の衣装ケースを欲しがった。値段は意外に高かったものの、デザインが良好だったので購入した。店員は注意深く包装し、頑丈な紙袋に入れてくれた。会計の時、割り勘にしようかまいか迷ったが、日頃の感謝を込めて私が全額払った。彼女の喜ぶ顔を見ていると、昨日あまりの空腹にばかばかしい喧嘩をしたことがむなしく思える。夫婦はおのおのの立場なりに、相手を思いやるものだ。",
+          dataVn:
+            "Khi đi mua sắm cùng vợ, cô ấy đã muốn một chiếc hộp đựng trang phục bằng gỗ. Mặc dù giá cao bất ngờ nhưng vì thiết kế tốt nên chúng tôi đã mua. Nhân viên đóng gói cẩn thận rồi cho vào túi giấy chắc chắn. Lúc thanh toán, tôi băn khoăn nên hay không nên chia tiền, nhưng đã trả hết để cảm ơn cô ấy. Nhìn mặt cô ấy vui, tôi thấy việc hôm qua cãi nhau vớ vẩn vì quá đói thật vô nghĩa. Vợ chồng thì nên quan tâm đối phương theo cách riêng của mỗi người.",
+          dataAnalysis:
+            "Dùng 際 (khi), ものの (mặc dù), ようか～まいか (nên hay không), なりに (theo cách của).",
+        },
+        {
+          id: 3,
+          dataJp:
+            "いまどき、通帳を持たずに金融取引を行うのが当たり前になりつつある。時代の変化にともなって、路線バスの支払いもカードのみとなった。一方的な進化に戸惑う人もいるが、便利さは増す一方だ。いわば、社会全体がデジタル化という装置に組み込まれているのだ。時代の変化に落第しないよう新しい技術を学ぶことは、現代を生きる上で欠かせない。一度この便利さを知ったきり、元の不便な生活には戻れまい。",
+          dataVn:
+            "Thời nay, việc giao dịch tài chính mà không cần sổ ngân hàng đang dần trở nên hiển nhiên. Cùng với sự thay đổi của thời đại, việc thanh toán xe buýt tuyến cũng chỉ còn dùng thẻ. Dù có người lúng túng trước sự tiến hóa phiến diện, nhưng sự tiện lợi thì cứ tăng dần. Có thể nói là, toàn xã hội đang được lắp vào một thiết bị gọi là số hóa. Việc học công nghệ mới để không bị tụt hậu là không thể thiếu trong quá trình sống ở thời hiện đại. Một khi đã biết sự tiện lợi này, có lẽ không thể quay lại cuộc sống bất tiện cũ.",
+          dataAnalysis:
+            "Dùng つつある (đang dần), にともなって (cùng với), 上で (trong khi/khi), まい (có lẽ không).",
+        },
+        {
+          id: 4,
+          dataJp:
+            "日本列島を南へ旅した際、熱帯地帯のような猛暑に驚いた。歩き疲れて脇道の古い家屋で休憩させてもらったが、足に怪我をして包帯を巻くことになった。夜、その家でろうそくを灯して食事をしたことは、今でも写真を見るにつけ思い出す。言葉が不自由で困りつつも、現地の人と交流したことは良い経験だ。当時の重苦しい暑さや、ろうそくの淡い光を連想すると、またいつかあの場所へ行きたいものだ。",
+          dataVn:
+            "Khi du hành về phía nam quần đảo Nhật Bản, tôi đã kinh ngạc trước cái nóng như vùng nhiệt đới. Do đi bộ mệt nên tôi đã nghỉ nhờ tại một ngôi nhà cổ trong đường hẻm, nhưng vì chân bị thương nên phải quấn băng gạc. Buổi tối, việc thắp nến dùng bữa tại ngôi nhà đó, giờ đây cứ mỗi khi xem ảnh tôi lại nhớ về. Mặc dù gặp khó khăn vì ngôn ngữ không thông thạo, nhưng giao lưu với người dân địa phương là trải nghiệm tốt. Khi liên tưởng đến cái nóng nặng nề hay ánh nến nhạt khi đó, tôi lại thật sự muốn đến nơi đó lần nữa.",
+          dataAnalysis:
+            "Dùng につけ (cứ mỗi khi), つつも (mặc dù), ものだ (nhớ về quá khứ).",
+        },
+        {
+          id: 5,
+          dataJp:
+            "試験に落第したあげく、彼はうかうかと過ごした自分を後悔している。物凄い努力をしたつもりだったが、結果からいうと準備不足だった。解答を書きかけのまま終了した自分を思い出すと、気恥ずかしいあまり、友人に会うのも煙たい。しかし、このままではいられない。データを補正し、弱点を分析して、次は合格までやりぬくのみだ。成功は努力次第だということを、今さらながら痛感している。",
+          dataVn:
+            "Sau một hồi cuối cùng lại thi trượt, anh ấy đang hối hận vì bản thân đã sống lơ đễnh. Dù cứ ngỡ là đã nỗ lực kinh khủng, nhưng xét từ kết quả thì là thiếu chuẩn bị. Khi nhớ lại bản thân đã kết thúc khi câu trả lời còn đang viết dở, vì quá xấu hổ nên việc gặp bạn bè cũng thấy ngột ngạt. Tuy nhiên, không thể cứ thế này mãi được. Chỉ còn cách điều chỉnh dữ liệu, phân tích điểm yếu và làm đến cùng cho đến khi đỗ vào lần tới. Tôi đang thấm thía rằng thành công là tùy vào nỗ lực.",
+          dataAnalysis:
+            "Dùng あげく (sau một hồi), つもり (ngỡ là), てはいられない (không thể cứ thế), 次第 (tùy vào).",
+        },
+        {
+          id: 6,
+          dataJp:
+            "落語という日本の伝統芸能は、読み手の顔つき一つで物語が広がる。初めて見た際、その表現力に心を打つものがあると感じた。学生ながらも熱心に学ぶ若者が増えており、彼らの練習は夜通し続くこともある。練習は厳しい反面、開幕の瞬間の喜びは大きい。伝統を守りつつも、新しい時代の感性を取り入れることは、文化を存続させる上で必要不可欠だ。",
+          dataVn:
+            "Rakugo, một môn nghệ thuật truyền thống của Nhật Bản, câu chuyện mở rộng chỉ bằng một biểu cảm khuôn mặt của người đọc. Khi xem lần đầu, tôi cảm thấy có điều gì đó chạm đến trái tim. Dù là học sinh nhưng những người trẻ hăng say học tập đang tăng lên, việc luyện tập của họ có khi kéo dài suốt đêm. Luyện tập khắc nghiệt nhưng mặt khác, niềm vui khoảnh khắc khai mạc là rất lớn. Việc vừa bảo tồn truyền thống vừa đưa vào cảm nhận của thời đại mới là điều không thể thiếu để duy trì văn hóa.",
+          dataAnalysis:
+            "Dùng 反面 (mặt khác), ながらも (mặc dù là), つつ (vừa... vừa).",
+        },
+        {
+          id: 7,
+          dataJp:
+            "この家具は木製であるのみならず、職人が一つ一つ注意深く製作したものだ。素材の粗さを削り、滑らかにする工程は手間がかかる。しかし、手間をかけただけあって、その仕上がりは良好だ。粗い木目が美しい模様に変わる様子は、見る人を力づける。製作にあたって、職人は一切の妥協を許さない。このような丁寧な仕事こそ、わが社の誇りというものだ。",
+          dataVn:
+            "Đồ nội thất này không chỉ làm bằng gỗ, mà còn được người thợ thủ công chế tác cẩn thận từng cái một. Công đoạn bào đi sự thô ráp của nguyên liệu để làm mịn tốn rất nhiều công sức. Tuy nhiên, đúng là vì bỏ công sức nên thành phẩm rất tốt. Cảnh tượng những vân gỗ thô biến thành hoa văn đẹp đẽ khích lệ người xem. Khi chế tác, người thợ không cho phép bất kỳ sự thỏa hiệp nào. Công việc tỉ mỉ như thế này chính là niềm tự hào của công ty chúng tôi.",
+          dataAnalysis:
+            "Dùng のみならず (không chỉ), だけあって (đúng là vì), にあたって (khi/nhân dịp), というものだ (chính là).",
+        },
+        {
+          id: 8,
+          dataJp:
+            "金融市場の動向をめぐって、専門家の間では議論が続いている。景気は回復しつつあるという意見がある反面、依然として危うい状態だとする声も多い。一時的な回復にすぎないという指摘もあり、今後の予測は難しい。政府の補助金によって、一部の業界は助かっているものの、全体的な解決には至っていない。国民の努力次第で、未来は変わる可能性がある。",
+          dataVn:
+            "Xoay quanh xu hướng của thị trường tài chính, các cuộc thảo luận giữa các chuyên gia vẫn tiếp tục. Một mặt có ý kiến cho rằng kinh tế đang dần hồi phục, mặt khác cũng có nhiều tiếng nói cho rằng trạng thái vẫn còn nguy hiểm. Cũng có chỉ trích rằng đó chỉ là sự hồi phục tạm thời, nên việc dự đoán tương lai rất khó. Dù một số ngành nghề đang được cứu vãn nhờ tiền trợ cấp của chính phủ, nhưng vẫn chưa đi đến giải quyết tổng thể. Tùy vào nỗ lực của quốc dân mà tương lai có khả năng thay đổi.",
+          dataAnalysis:
+            "Dùng をめぐって (xoay quanh), にすぎない (chỉ là), 次第で (tùy vào).",
+        },
+        {
+          id: 9,
+          dataJp:
+            "規則正しい生活を送ることは、健康を維持する上で欠かせない。しかし、仕事が忙しいからといって、睡眠時間を削る人が多い。無理をすれば、いつか体調を崩しかねない。自分の体調を考慮した上で、適切な休息を取ることが大切だ。若いうちは無理がきくものの、年を取るとともに回復が遅くなる。元気な限り、仕事も遊びも全力で楽しみたいものだ。",
+          dataVn:
+            "Sống một cuộc sống điều độ là không thể thiếu để duy trì sức khỏe. Thế nhưng, dẫu nói là công việc bận rộn nhưng nhiều người vẫn cắt xén thời gian ngủ. Nếu quá sức, có khả năng một lúc nào đó sẽ hỏng sức khỏe. Sau khi cân nhắc tình trạng cơ thể, việc nghỉ ngơi hợp lý là rất quan trọng. Khi còn trẻ thì có thể quá sức, nhưng càng có tuổi thì sự hồi phục càng chậm. Chừng nào còn khỏe mạnh, tôi vẫn muốn tận hưởng hết mình cả công việc lẫn vui chơi.",
+          dataAnalysis:
+            "Dùng からといって (dẫu nói là), かねない (có khả năng - xấu), た上で (sau khi), とともに (càng... càng/cùng với).",
+        },
+        {
+          id: 10,
+          dataJp:
+            "彼の提案に反して、反対意見が相次いだ。計画の粗さを指摘されたあげく、再検討を命じられた。彼は納得いかないげに笑ったが、状況から見て、引き下がらざるをえない。失敗の原因を自分なりに分析したところ、準備不足が明らかになった。次はデータに基づいて、より説得力のある案を作るつもりだ。協力なしには、プロジェクトの成功しようがない。",
+          dataVn:
+            "Trái với đề án của anh ấy, các ý kiến phản đối liên tiếp đưa ra. Sau một hồi bị chỉ trích về sự thô sơ của kế hoạch, anh ấy bị ra lệnh xem xét lại. Anh ấy cười có vẻ không phục, nhưng nhìn từ tình hình thì đành phải rút lui. Khi tự mình phân tích nguyên nhân thất bại, sự thiếu chuẩn bị đã rõ ràng. Lần tới, anh ấy định tạo ra một phương án có sức thuyết phục hơn dựa trên dữ liệu. Nếu không có sự hợp tác, dự án không thể nào thành công được.",
+          dataAnalysis:
+            "Dùng に反して (trái với), げに (có vẻ), ざるをえない (đành phải), ところ (sau khi thử làm thì thấy), ようがない (không thể nào).",
+        },
+        {
+          id: 11,
+          dataJp:
+            "衣装を新調するにあたって、彼は自分の好みを優先した。しかし、会場の雰囲気にそぐわないどころか、周囲から浮いてしまった。みっともない格好で来場者の注目を浴び、彼は気恥ずかしい思いをした。服装からしてその人のセンスが問われるものだ。TPOをわきまえることは、社会人として当然というものだ。今後は注意深い服装選びを心がけることだ。",
+          dataVn:
+            "Khi may mới trang phục, anh ấy đã ưu tiên sở thích của mình. Thế nhưng, chẳng những không hợp với không khí hội trường mà còn bị lạc quẻ với xung quanh. Bị thu hút sự chú ý của khách tham dự với bộ dạng đáng xấu hổ, anh ấy cảm thấy ngại ngùng. Xét từ trang phục, gu thẩm mỹ của người đó sẽ bị đặt dấu hỏi. Việc hiểu rõ hoàn cảnh (TPO) là điều đương nhiên của một người trưởng thành. Sau này nên chú ý cẩn trọng trong việc chọn trang phục.",
+          dataAnalysis:
+            "Dùng どころか (chẳng những... mà ngược lại), からして (xét từ), ことだ (nên - khuyên bảo).",
+        },
+        {
+          id: 12,
+          dataJp:
+            "連日猛暑が続く中、外に出るくらいなら家で読書をしたい。暑さのあまり外出を控える人が多く、街は静かだ。一方的な気候の変化にともなって、農作物の被害も出ている。水不足のおそれがあるため、節水が呼びかけられている。天候に関わらず仕事に行かなければならないのは、会社員のつらいところだ。せめて週末くらいは、ゆっくり休みたいものだ。",
+          dataVn:
+            "Trong lúc nắng nóng gay gắt kéo dài liên tục, thà ở nhà đọc sách còn hơn là ra ngoài. Vì quá nóng nên nhiều người hạn chế ra đường, phố xá yên tĩnh. Cùng với sự thay đổi phiến diện của khí hậu, thiệt hại về nông sản cũng đang xuất hiện. Vì e rằng có nguy cơ thiếu nước, việc tiết kiệm nước đang được kêu gọi. Bất kể thời tiết mà vẫn phải đi làm là điểm khổ của nhân viên công ty. Ít nhất là vào cuối tuần, tôi thật sự muốn nghỉ ngơi thong thả.",
+          dataAnalysis:
+            "Dùng くらいなら (thà... còn hơn), あまり (vì quá), おそれがある (nguy cơ), に関わらず (bất kể).",
+        },
+        {
+          id: 13,
+          dataJp:
+            "上司の指示に沿って作業を進めていたが、途中で方針が変わった。急な変更に戸惑いつつも、やるしかない。自分なりに工夫して製作した装置が、意外に高く評価された。愚痴を言ったところで、状況は変わらない。それよりも、現状に基づいて最善を尽くすべきだ。成功はチームの協力次第だということを忘れてはならない。",
+          dataVn:
+            "Tôi đã tiến hành công việc theo chỉ thị của cấp trên, nhưng giữa chừng phương châm bị thay đổi. Dù lúng túng trước sự thay đổi đột ngột nhưng vẫn phải làm thôi. Thiết bị mà tôi tự mình dày công chế tạo đã được đánh giá cao bất ngờ. Dẫu có nói lời than phiền thì tình hình cũng chẳng thay đổi. Thay vào đó, nên nỗ lực hết mình dựa trên hiện trạng. Không được quên rằng thành công tùy thuộc vào sự hiệp lực của cả đội.",
+          dataAnalysis:
+            "Dùng に沿って (theo), たところで (dẫu có... thì cũng không), 次第だ (tùy vào).",
+        },
+        {
+          id: 14,
+          dataJp:
+            "学生時代、友人たちと夜通し語り合ったものだ。ばかばかしい夢を語り合い、未来に希望を抱いていた。あの頃の純粋な気持ちを連想すると、今の自分が少し恥ずかしい。社会に出てからというもの、現実に追われるばかりだ。忙しいとはいえ、たまには昔の仲間に会いたい。元気なうちに、もう一度あの頃のように笑い合いたいものだ。",
+          dataVn:
+            "Thời học sinh, tôi thường cùng bạn bè trò chuyện suốt đêm. Chúng tôi kể cho nhau nghe những giấc mơ vớ vẩn và ôm ấp hy vọng vào tương lai. Khi liên tưởng đến cảm xúc thuần khiết lúc đó, tôi thấy bản thân bây giờ hơi xấu hổ. Kể từ khi ra xã hội, tôi cứ mãi bị thực tại đuổi theo. Dù nói là bận rộn nhưng thi thoảng tôi vẫn muốn gặp lại những người bạn cũ. Chừng nào còn khỏe, tôi muốn lại một lần nữa được cười đùa cùng nhau như thời đó.",
+          dataAnalysis:
+            "Dùng たものだ (thường làm gì trong quá khứ), てからというもの (kể từ khi), ばかりだ (cứ mãi), とはいえ (dù nói là).",
+        },
+        {
+          id: 15,
+          dataJp:
+            "この地帯は道が細く、そそっかしい運転をすると事故が起きかねない。特に夜間は視界が悪いため、注意深い運転が求められる。標識に沿って進まないことには、目的地にたどり着けない。安全を問わずスピードを出すのは、みっともない行為だ。一度事故を起こしたきり、運転を辞めてしまう人もいる。命の大切さを学ぶ上で、交通ルールの遵守は欠かせない。",
+          dataVn:
+            "Khu vực này đường hẹp, nếu lái xe cẩu thả thì có khả năng xảy ra tai nạn. Đặc biệt là ban đêm tầm nhìn kém nên yêu cầu lái xe cẩn trọng. Nếu không đi theo biển báo thì không thể đến được đích. Việc phóng nhanh bất kể an toàn là hành vi đáng xấu hổ. Có những người sau khi gây tai nạn một lần là bỏ lái xe luôn. Trong quá trình học về sự quan trọng của sinh mạng, việc tuân thủ luật giao thông là không thể thiếu.",
+          dataAnalysis:
+            "Dùng かねない (có khả năng - xấu), ないことには (nếu không... thì không), を問わず (bất kể), きり (sau khi... thì cứ mãi).",
+        },
+        {
+          id: 16,
+          dataJp:
+            "わが社の衣料品は、年齢を問わず多くの人に愛されている。素材選びから製作まで、一点一点注意深く行っている。デザインが良好な反面、価格が抑えられているのも魅力だ。包装にもこだわり、紙袋は環境に優しい木製パルプを使用している。一度着てみたところ、その心地よさに驚くはずだ。期待に応えて、今後も新しいスタイルを提案し続けるつもりだ。",
+          dataVn:
+            "Hàng may mặc của công ty chúng tôi được nhiều người yêu thích bất kể tuổi tác. Từ việc chọn nguyên liệu đến chế tác, từng món đồ một đều được thực hiện cẩn thận. Mặt khác của việc thiết kế tốt thì giá cả được giữ thấp cũng là điểm thu hút. Việc đóng gói cũng được chú trọng, túi giấy sử dụng bột gỗ thân thiện với môi trường. Sau khi thử mặc một lần, chắc chắn bạn sẽ ngạc nhiên vì sự thoải mái của nó. Đáp lại sự kỳ vọng, chúng tôi định sẽ tiếp tục đề xuất những phong cách mới trong tương lai.",
+          dataAnalysis:
+            "Dùng を問わず (không phân biệt), 反面 (mặt khác), たところ (sau khi thử làm thì...).",
+        },
+        {
+          id: 17,
+          dataJp:
+            "計画の実施に際して、多くの反対意見が出た。架空のデータに基づいているという指摘もあり、信頼性は危うい。説明不足な上に、一方的な進め方に不満が募っている。このままでは失敗を招きかねない。もう一度検討した上で、再度説明を行うべきだ。納得なしには、プロジェクトを進めようがない。",
+          dataVn:
+            "Khi thực hiện kế hoạch, nhiều ý kiến phản đối đã đưa ra. Cũng có chỉ trích rằng nó dựa trên dữ liệu hư cấu nên tính tin cậy rất nguy hiểm. Không chỉ thiếu giải thích, mà sự bất mãn đang tăng lên đối với cách tiến hành phiến diện. Cứ thế này thì có khả năng dẫn đến thất bại. Nên giải thích lại lần nữa sau khi đã xem xét kỹ. Nếu không có sự thấu hiểu thì không thể nào tiến hành dự án được.",
+          dataAnalysis:
+            "Dùng に際して (khi), に基づいている (dựa trên), かねない (có khả năng - xấu), ようがない (không thể nào).",
+        },
+        {
+          id: 18,
+          dataJp:
+            "不手際があったあげく、お客様に多大なご迷惑をかけた。自分の注意不足だったばかりに、取り返しのつかないことになった。気恥ずかしい思いでいっちだが、誠実に対応するのみだ。相手の怒りに応えて、全力で補償を行うつもりだ。信頼を回復するには、今後の行動次第だ。二度と同じ過ちを繰り返すまいと、心に誓っている。",
+          dataVn:
+            "Sau một hồi có sự sai sót, tôi đã gây ra phiền phức lớn cho khách hàng. Chỉ vì sự thiếu chú ý của bản thân mà đã dẫn đến việc không thể cứu vãn. Dù trong lòng đầy sự hổ thẹn nhưng tôi chỉ còn cách ứng đối thành thực. Đáp lại sự giận dữ của đối phương, tôi định sẽ bồi thường hết sức mình. Việc hồi phục lòng tin tùy thuộc vào hành động sau này. Tôi thề trong lòng rằng sẽ không bao giờ lặp lại sai lầm tương tự.",
+          dataAnalysis:
+            "Dùng あげく (sau một hồi), ばかりに (chỉ vì), のみだ (chỉ có cách), まい (quyết không).",
+        },
+        {
+          id: 19,
+          dataJp:
+            "この店の料理は、見た目が粗いものの、味は絶品だ。素材の味を活かすとともに、独特の調味料が使われている。一度食べたきり、その味の虜になる人が多い。混雑に関わらず、店員は手際よく対応してくれる。忙しい日常を忘れて、美味しいものを食べるだけましだ。行列に並ぶくらいなら、予約をして行くべきだ。",
+          dataVn:
+            'Món ăn của quán này nhìn tuy thô sơ nhưng vị thì tuyệt hảo. Cùng với việc phát huy vị của nguyên liệu, những gia vị độc đáo cũng được sử dụng. Có nhiều người sau khi ăn một lần là trở thành "con nghiện" hương vị đó luôn. Bất kể đông đúc, nhân viên vẫn ứng đối rất nhanh nhẹn. Quên đi ngày tháng bận rộn, được ăn đồ ngon là tốt rồi. Thà đặt chỗ trước mà đi còn hơn là phải xếp hàng.',
+          dataAnalysis:
+            "Dùng ものの (mặc dù), とともに (đồng thời), きり (sau khi... thì cứ), だけましだ (là tốt rồi).",
+        },
+        {
+          id: 20,
+          dataJp:
+            "彼からの連絡を待ち続けること、早一週間。来るとか来ないとかいう噂に振り回されている。どんなに不安だったことか、彼には分かるまい。期待したつもりだったが、結果は淡い影のようだ。しかし、成功を前提とする限り、諦めるわけにはいかない。準備ができ次第、自分から行動を起こすつもりだ。",
+          dataVn:
+            "Đã một tuần trôi qua kể từ khi tôi tiếp tục chờ đợi liên lạc từ anh ấy. Tôi đang bị xoay như chong chóng bởi những lời đồn như là sẽ đến hay là không đến. Anh ấy làm sao hiểu được tôi đã bất an biết bao nhiêu. Tôi cứ ngỡ là đã kỳ vọng rồi, nhưng kết quả lại giống như bóng hình nhạt nhòa. Tuy nhiên, chừng nào còn coi thành công là tiền đề, tôi không thể bỏ cuộc. Ngay sau khi chuẩn bị xong, tôi định sẽ tự mình hành động.",
+          dataAnalysis:
+            "Dùng とか (như là - liệt kê), ことか (biết bao nhiêu), 限り (chừng nào còn), 次第 (ngay sau khi).",
+        },
+      ];
+
+      ReadingPractice.init({
+        data: DATA,
+        storageKey: "jlpt_n2_reading_20260323",
+        badge: "N2 読解",
+      });
+    </script>
+  </body>
+</html>

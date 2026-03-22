@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+  ═══════════════════════════════════════════════════════════
+  TEMPLATE - Trang luyện đọc JLPT N2 mới
+  ───────────────────────────────────────────────────────────
+  Cách tạo trang mới:
+    1. Copy file này, đặt tên mới (vd: reading_20260330.html)
+    2. Sửa <title>
+    3. Thay DATA bên dưới bằng dữ liệu mới
+    4. Sửa storageKey thành tên ngày tương ứng (phải unique)
+    5. Xong!
+  ═══════════════════════════════════════════════════════════
+  -->
+    <title>JLPT N2 - Luyện đọc hiểu (YYYYMMDD)</title>
+    <link rel="stylesheet" href="reading-practice.css" />
+  </head>
+  <body>
+    <header>
+      <div class="rp-logo">JLPT N2 <span>/ Luyện đọc</span></div>
+    </header>
+
+    <div class="rp-progress-wrap">
+      <div class="rp-progress-meta">
+        <span id="rp-progLabel"></span>
+        <span id="rp-progPct"></span>
+      </div>
+      <div class="rp-progress-bar-bg">
+        <div
+          class="rp-progress-bar-fill"
+          id="rp-progressBar"
+          style="width: 0%"
+        ></div>
+      </div>
+    </div>
+
+    <div class="rp-card" id="rp-mainCard">
+      <div class="rp-card-header">
+        <span class="rp-badge" id="rp-badge">N2 読解</span>
+        <span class="rp-passage-id" id="rp-passageId"></span>
+      </div>
+      <div class="rp-japanese-text" id="rp-jpText"></div>
+      <button
+        class="rp-toggle-btn"
+        id="rp-toggleBtn"
+        onclick="ReadingPractice.toggleMeaning()"
+      >
+        <span>📖 Xem nghĩa &amp; giải thích</span>
+        <span class="rp-arrow">▼</span>
+      </button>
+      <div class="rp-meaning-panel" id="rp-meaningPanel">
+        <div class="rp-meaning-inner">
+          <div class="rp-vn-block">
+            <div class="rp-section-label">🇻🇳 Dịch nghĩa Tiếng Việt</div>
+            <p id="rp-vnText"></p>
+          </div>
+          <div class="rp-analysis-block">
+            <div class="rp-section-label">✏️ Giải thích ngữ pháp</div>
+            <p id="rp-analysisText"></p>
+          </div>
+        </div>
+      </div>
+      <div class="rp-actions">
+        <div id="rp-doneBadge" class="rp-done-badge" style="display: none">
+          ✅ Đã xem xong
+        </div>
+        <button
+          class="rp-btn-next"
+          id="rp-nextBtn"
+          onclick="ReadingPractice.nextPassage()"
+        >
+          Chuyển sang đoạn tiếp theo →
+        </button>
+      </div>
+    </div>
+
+    <div class="rp-card rp-completion-card" id="rp-completionCard">
+      <div class="rp-completion-icon">🎉</div>
+      <div class="rp-completion-title">Hoàn thành tất cả đoạn!</div>
+      <div class="rp-completion-sub">
+        Bạn đã đọc hết toàn bộ bài luyện đọc N2.
+      </div>
+      <button class="rp-btn-restart" onclick="ReadingPractice.restartAll()">
+        ↺ Học lại từ đầu
+      </button>
+    </div>
+
+    <div class="rp-dot-grid" id="rp-dotGrid"></div>
+
+    <!-- ═══ ENGINE (không cần sửa) ═══ -->
+    <script src="reading-practice.js"></script>
+
+    <!-- ═══ DATA (chỉ cần sửa phần này) ═══ -->
+    <script>
+      const DATA = [
+        // Thêm dữ liệu theo format:
+        // { id: 1, dataJp: "...", dataVn: "...", dataAnalysis: "..." },
+        {
+          id: 1,
+          dataJp: "ここに日本語のテキストを入力してください。",
+          dataVn: "Nhập bản dịch tiếng Việt vào đây.",
+          dataAnalysis: "Giải thích ngữ pháp: ...",
+        },
+      ];
+
+      ReadingPractice.init({
+        data: DATA,
+        storageKey: "jlpt_n2_reading_YYYYMMDD", // ← đổi ngày tháng cho mỗi file mới
+        badge: "N2 読解",
+      });
+    </script>
+  </body>
+</html>
